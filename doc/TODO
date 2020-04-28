@@ -1,0 +1,384 @@
+version 3.0.2 (version 3 completion)
+-modify fast insertion of "number of children" in "number of infants", with maximum number to be asked and price instead of discount
+-possibility to insert a reservation of the same type (and client) from the "modify reservation" page, also for deleted reservations
+-possibility to modify money paid by reservations not permanently deleted
+-save documents with names longer than 255 characters with a tag "extra" in the filename and insert reservation and client numbers in another file with same name and .dat extension (when document created or renamed in new year)
+-possibility to use a variable of the document as the name of the file when the document is downloaded (once the document is created store it in .dat file in case the document is opened again, for example from documents table)
+-remove php NOTICEs: createdb, insert reservation, month tables, reservations table, rates table, modify reservation
+-possibility for normal users to try to divede a reservation in different trunks if not possible to insert it (don't offer all apartments like done for admin, also for admin possibility to try directly to divide)
+-possibility to set taxes in cashbox payments (import taxes of extra cost from POS, set a default for each cashbox)
+-possibility to add taxes to extraordinary extra cost
+-add check-in and check-out times to document variables, empty if check-in or check-out not done (so you can check if a reservation is currently checked in)
+-add an "action API" section in interconnections page, where you can enable the API to receive calls to add an extraordinary extra cost to a currently checked-in (or present) reservation (example of URL with cost data, room number and passphrase)
+-in action API possibility to modify quantity of an existing item in stockroom or room: send room number, item code (multiple updates if multiple items with same code, error if code not found) and new quantity (show old quantity in response?)
+-in action API possibility to set check-in and check-out for a reservation in a given room
+-button to add predefined phrases in email documents where cursor is placed in the text (phrases added to all email documents or only current document from "modify document" page)
+-for agreements in webpages possibility to only show them (without having to be accepted) and to be already checked when needed
+-for availability page add a line "other requests" between price and deposit when there are extra costs checked with 0 price
+-for availability page enclose prices lines in a contaier with max-width and make it float right in default themes (add a button "modify dates" that sends back to first step?)
+-for availability page add the minimum days (second date) that must be selected by default in the form (and also in javascript when changing dates?)
+-for availability page for periods with multiple days add the option to display the first period of dates by separate days if the period has begun (also inside hoteldruid?)
+-possibility for webpages to change page to another language if the page in that language exists (store other languages filenames when page created) (only default themes? remove options with non-existing pages in html parts?)
+-possibility for predefined themes in webpages to set a link to background image (centered and adapted) for the page, make form semi-transparent in this case
+-possibility to include (framed) internet pages with a javascript function (sample code when pages are generated, as for iframe) (wordpress plugin?)
+-possibility to import the fixed price from per person (and viceversa) when importing rate prices (insert discounts separately?)
+-possibility to insert separately both a fixed and % value when importing rate prices
+-when inserting a reservation with a multiple rooms rate and number of people over the capacity, use "$diff_aggiungi_letti" like done in availability webpage to add extra beds only for exceeding number of people, not to all rooms (when insering a request of this type from availability webpage there is a price difference warning)
+-when periods are added also import assignment rules 1, dates in menus and periods of imported rates
+
+
+version 3.1 (multi-hotels enhancements)
+-privilege to view only some rooms (replaces current one based on assignment rule 2, with rule 1 still useful to select only some periods)
+-possibility to select only one group (also if user doesn't belog to it?) instead of all users' groups for each privilege in user privileges
+-possibility to select "always" as the period for rule 1
+-possibility to select "all rooms" or "all rooms from rate X" (or select rooms like rule 2) when inserting rule 1
+-in single rate table when clicking on availability select first date and last date to insert a new rule 1 (popup with motivation?) or if already grey offer to delete or modify (popup?) selected rule 1
+-new privilege to make newly inserted motivations for rule 1 for conditional availability available to user or all his groups or one group (check that user can't insert a motivation not allowed to him) (line below "insert rule 1" privilege) (if enabled allow user with not all rules 1 allowed to insert conditional rules 1, currently can't)
+-privilege for users to add periods (show button at months end, 4 months missing in main menu, etc.)
+-minimum number of people for each rate (added to rule 3?)
+-privilege to see only alredy inserted extra costs permitted to user (instead of all) when modifying a reservation (new line below extra costs privilege line with 2 options)
+-show room as grey in rooms table if it's currently closed with rule 1
+-remove remaining php NOTICEs
+-add interface for a module for gender guessing (gender.c --> gender executable, path in a costant?), select if enable only for secure matches or also "mostly X" in "conf and cust" (use it for default selection when inserting client/guest and also in interconnections and webpages if gender not asked)
+-add global privileges to modify sections for year, reservations table, cashbox tables (totals?) and property data (add buttons "modify fo all" like done for people types and currencies) 
+-in privileges possibility to modify also remaining customizations "for his groups" or "for all" (in this case possibility to select customizations user from his groups or all users when creating webpages)
+-guided insertion of a new rate: name - place in rates order - seasonal periods, prices, deposit, taxes and commissions (or import) - rule 2 - rule 3 - rule 1 (also import) - extra costs - users and rule 4 (?) - webpages
+-possibility to use external smtp server instead of php mail() function in configure and customize (possible with imap functions? or only in php.ini with mail function?) (?)
+-add a costant to limit the number of emails sent in last 24h if not using external smtp (?)
+-for email documents possibility to send them to "email", "email2" and/or "email3" (also structure emails or custom email and update "fattura elettronica"?)
+-email documents can be considered as API too and send email automatically when they are called (if not already sent?)
+-add a default API document with xml from OpenTravel Alliance to export reservations data
+
+
+version 3.1.1 (client data enhancements)
+-possibility (in "modify document" page) to check if another (saved) document exists and eventually create it when viewing/saving the document (?)
+-add region of the province in default Italian regions code 3 (?)
+-possibility to save documents linked to clients, as it's done for reservations (add client number also to documents saved for reservations?)
+-upload a file (document photo, etc.: jpeg, jpg, gif, png, pdf, doc, docx, odt, rtf, txt,...) as document connected to a client or reservation, as it is already done from the documents table
+-possibility to show all client's documents in the page to modify client and all reservation documents in the page to modify reservations
+-possibility to overwrite a document with one uploaded from the documents table (or reservation/client page)
+-client number in documents variables and do not show doubles in "export clients data" document
+-show client name in documents table (if client number is present)
+-add "email2" (certified or PEC) to structure data and corresponding document variable
+-possibility to insert also issuing date for ID documents in clients data
+-link the titular client with guests of the reservation even if he's not a guest himself (?)
+
+
+version 3.1.2 (point of sale functionalities)
+-possibility to delete the associated extra cost(s) when deleting an item from a stockroom inventory
+-possibility to add an inventory item directly from the stockroom inventory (text box instead of drop-down menu)
+-when modifying inventory quantites, after display also modified quantites with +0
+-after an item is added to inventory (with or without extra cost) show the quantity added
+-warning when an inventory item is added and there is already an existing item with the same name
+-possibility to import inventory from a stockroom or room to another stockroom or room or all rooms or rooms from a rate
+-when modifying inventory in a stockroom show categories on buttons (float left if enough screen space) to show only items in that category like done in pos, arrows to go at top or bottom of page (float right if enough space)
+-privileges to insert incomes and expenses but without deleting them
+-buy price per unit for inventory items, with possibility to change it and to subtract the amount from a cashbox when items added to inventory
+-check that default invoice documents work when called from point of sale: when inserting on reservation give the possibility (drop-down menu?) to show document only for inserted costs (default?), instead of all extra costs of reservation
+-add a "point of sale" receipt or invoice(?) with the list of extra costs and prices to default documents (error if reservation number is present)
+-show taxes of rates in default invoices
+-add an html invoice showing "base price"(, "taxes %") and taxes on the same line
+-lock backup, upgrade lock and year creation lock when making login with sqlite (slower to upgrade, but other databases too?)
+-for mobile select alternative columns in all reservations table, showing them "always", on "wide (lanscape)" or "very wide (tablet landscape)" screens (merge arr/dep dates on small screens)
+-for mobile select alternative lenght for names in month table
+-for mobile select initial zoom in point of sale and month table (initial-scale from 0.5 to 1.5, default 0.8) (value saved in dati/temi.php?)
+-show custom client fields when showing data of client when inserting or modifying a reservation
+-fast extra cost insertion for "housekeeping" (cleaning) costs (insert also inventory items in rooms needed for checkin) (?)
+-for users privileges possibility to select costs by category instead of single costs
+-possibility to delete/add an inventory item from rooms at checkin, checkout or every day/week at a selected hour
+-in rooms table possibility to assign a room to a (housekeeping) user (add also document variable and show in cleaning report)
+-fast insertion of a "housekeeping" user (can only modify housekeeping category costs and change "clean" inventory in rooms, show user to be associated to rooms in rooms table)
+-add comment to default cleaning report (first condition of the report to enable it, with text on which condition must be modified to replace the reservation comment with a custom comment)
+-add past arrival date and future departure date to cleaning report
+-document variable with comma separated list of items in unit inventory (and another with missing items) in units repetitions
+-when showing numer of days in "all reservations" table, show the sum in the "total" line
+
+
+version 3.2 (revenue management)
+-rates batch update: add x ($ or %) to prices (also from other rates) daily or weekly, based on dates and availability, with possibility to save it
+-add a "periodic actions" page, where you can set some actions (calling a document though the API and eventually sending the email, batch rate update, update subordination, etc.) to be carried out when the page is called, for example from a cron job (constant to show the times when page is called)
+-possibility to delete/add an inventory item from rooms every day/week at a selected hour, or everyday and only perform the action if a selected daily cost is present on that day in the reservation for each room
+-possibility to add (and remove?) existing extra costs, room inventory goods and client/guests data (scanned documents) to reservations from the interconnections API (called with room name for currently present or checked-in reservation)
+-add "checked-in" reservations to be selected from documents API
+-optional "transaction date" for reservation and cashbox payments, inserted by operator, different from "insertion date" (add document variable)
+-optional "note" when inserting reservation payments (add document variable) (when viewing a document from cashboxes insert the payment name in the note variable)
+-possibility to insert a payment id when inserting a reservation payment (add document variable)
+-possibility to insert the number of people to be divided casually in selected rates when adding new types while inserting a reservation
+
+
+version 3.3 (multi-currency completion)
+-multicurrency: choose currency when inserting reservations and store current exchange rate also for each extra cost (new fields in costiprenotaXXXX). Also webpages with possibility for the user in the webpage to select the enabled currencies
+-multicurrency: possibility to store prices of selected rates in a secundary currency (main currency calculated with current exchange rate). When a reservation is inserted using these rates use by default that currency for the reservation. Also interconnections.
+-multicurrency: possibility for reservations with secondary currency to convert to main currency at current exchage rate, deleting values in other currencies. Also from reservations table for all selected reservations that have different currency. (or only for payments?)
+-encode email subjects with utf-8
+-multilingual subjects in email documents
+-possibility to modify subject before sending email
+-possibility to attach a different file for each language to email documents in multi-language mode
+-possibility to attach an html or txt document to email documents: create it when email document is created and if not existing (for saved documents)
+
+
+version 3.3.x
+-alternative priority of units when there is an extra bed (order by priorita_lettoagg, priorita and use second letter in assegnazioneapp)
+-possibility to have incompatible rooms with combined extra costs (previously check if the cost will be affected by permitted periods and incompatible rates)
+-when making check-in and the room has not been checked-out, if the reservation has multiple rooms then offer the possibility to try to move the reservation in a free room (move same day reservations that has not been checed-in yet?)
+-add age limits for person types and link person types to specific guests with possibility to enforce requested age depending on person type (or give a warning)
+-possibility to make costs as extra beds compatible only with some person types, so they are added automatically when searching availability only if that person type is requested
+-add person types to statistics
+-possibility to select years older than 5 in statistics (still limit to 5-7 years to be shown simultaneously)
+-possibility to use "X days from current date" for "last available date" (and first date?) in periods when extra costs can be inserted (cancel possibility to assign cost when > or < days missing?) (?)
+-possibility for daily extra costs with specific days for not being applied to the last X days
+-possibility for daily extra costs with specific days for being applied only on day X of the reservation
+-possibility to indicate the number of nights for final date (javascript in simple theme?), also in webpages
+-possibility to select day and month-year for dates, also in webpages
+-in check availability webpage (and instant and confirm) possibility to add custom html different for each step, just before the second part of custom html
+-check if normal user has privileges to manage password when viewing credit card and password has expired
+-by default (or when not activated) subordination should import only current and future years
+-enable possibility to don't use password in download of email messages (ask it each time they are downloaded)
+-show exceptions to rule 2 in indicative availability overviews (main menu check, calendar and  availability webpage, single rate page)
+-in single rate table show correctly minimum stay from daily extra costs applied only to some weekdays
+-possibility to modify rate name from single rate page (above rule 2?)
+-show week days when not grouping dates in single rate page
+-in all reservations table add "only reservatins inserted" as an option in the drop-down menu of "all reservations from date to date" at top
+-possibility to add columns with rate price, discount and rate price + discount in all reservations table
+-add a line that explains how multiple selections work when clicking on a cell below the reservations table (and colors legend?) (before "back to main menu")
+-add a line in year section of "configure and customize" that explains that all dates can be shown by clicking the small apostrophes found near the drop-down menus (if not all dates selected and user being modified has privileges to modify customization)
+
+
+version 3.4
+-if there is no availability for a minimum stay, then possibility to lower it to the maximum available period (consider periods when all rooms from rule 2 are occupied as limits for available periods)
+-late check-in and check-out option, blocking availability to normal check-in, also shown in month table (?) (configuration with 2 rooms, day and night, for each real room? --> assignment rule to book 1 room the first day and the other the last day of reservation)
+-transition to html 5 from html 4.1
+-optimize all pages for mobile view (viewport tag), also documents headers
+-leave first (and last?) column of month table (rooms column) fixed, letting the rest of the table move with x-overflow if the table is larger than the screen (also in mobile)
+-more space to click replicated buttons in mobile view
+-possibility to add directories where webpages are created form the first page of webpages creation
+
+
+version 3.4.1
+-truncate too long (old?) messages, with button to show the rest of the message
+-search messages with a string in their text
+-when inserting prices daily or weekly, for rates with rule 2 that assigns multiple rooms, show the multiplied price with javascript
+-for blue and colors themes add icons when modifying a document, in users privileges and in interconnections
+-in table of the rate show dates only from today and possibility to show all days
+-in table of the rate show multiple tables if normal table is too long (or leave first column fixed and the res of the table with x-overflow)
+-in table of the rate show rooms associated with rule 2 and a link to modify them
+-after an extra cost has been imported ask if it must be added to all users and existing webpages
+-when a room is added ask which extra costs (already incompatible with other rooms) it must be incompatible with, which rates it must be associated with rule2
+-when a rate is added ask which extra costs (already automatically assigned to some rates) it must be assigned automatically (with days and type), default deposit/commissions, rooms for rule2, which users (with only selected rates) enable, and if assignment rules 1 must be imported from another rate
+
+
+version 3.4.2
+-css/js to keep the first row on top when scrolling down the rates table (and first columns with horizontal scroll?) in simple theme (or possibility to show header row each X rows)
+-possibility to show pop-up with dates (between 2 different rows) and price when modifying prices in rates table (redirects to insert prices table)
+-css/js for colored box where prices have been modified when modifying prices in rates table
+-set unique ID for default documents (even across languages) and add the possibility to restore them. After upgrade offer the possibility to upgrade unmodified new ones (also all at once)
+-possibility to don't show past dates (months?) in availability calendar page
+-possibility to show availability calendar only when there is no availability in availability and booking webpages
+-possibility to save the bill for later payment in point of sale (associating it to a "POS unit": restaurant table)
+-possibility to view last X insertions in point of sale
+-amounts divided by payment methods and/or dates in cashboxes (pass selected dates also to document and also select dates in document API)
+-option to don't import remaining amounts in cashboxes when creating new years
+-last row in cashbox tables to insert a new income or expense
+-possibility to subtract a cashbox income from another cashbox (as expense) when inserting it
+-possibility to automatically insert the payment in a selected cashbox when a payment method is selected (overwrites user privilege if existing, so add a "if payment method has no cashbox" in privileges page)
+-possibility to automatically insert point of sale paid money in a specific cashbox in user privileges (already done for reservation payments, also extra costs?)
+-add new document variable [extra_cost_category] defined inside costs repetitions
+-add 3 letters nation codes to default values (at least in English for code 2 or 3?)
+-global privilege to don't allow to insert payments without payment method (when available, default on first inserted method?)
+-possibility to delete a single payment in reservarions history table (with privileges)
+
+
+version 3.4.x
+-view totals of selected reservations when modifying a group of reservations
+-fix values (tariffesettimanali, etc.) of reservations that begin in previous year in documents generated from month table or other pages that only pass reservations numbers
+-possibility for normal users to move other begun (not checkedin) reservations on "try again" if the initial date corresponds to current date
+-possibility to select dates for rule 1 in a calendar that also shows already inserted rules ("x" to delete them): blue color for motivations, red color for closures, red/blue stripes for both (with multiple rooms) 
+-possibility to select "all rates" when inserting deposits and commissions
+-possibility to use dates from a user instead of specific dates in website pages (?)
+-possibility to translate also the dates with "modify phrases" in website pages
+-move English and Spanish translations of webpages (only availability excluded) from phrases.php to modt_pag.php in land folder (so phrases in other languages can be automatically added in translation script)
+-possibility to import settings (at least html parts) from another website page (with or without phrases)
+-possibility to create website pages in multiple languages all at once
+-add the editing of website directories in the "create webpages" page (redirecting to "configure and customize" page)
+-possibility to show photos and descriptions of rates and rooms from rates webpage or from availability calendar webpage (new "room types" page?)
+-in rates webpage possibility to don't show costs with a value of 0 (minimum stay automatically added)
+-possibility to calculate extra costs on rate price without taxes
+-try to store taxes for each payment (if payment is partial pay before rate/discount and after extra costs, check previous payments to calculate already paid taxes) (or store for wich rate/extra costs have been used to create document?) (?)
+-in extra costs when options 5 (rates association), 6 (early booking/last miute) and 7 (multiple reservations) are selected choose if "or" or "and" should be user to combine these options (currently only "or") (also in special offer fast insertion)
+-possibility to sort extra costs (custom or alphabetically with categories?), also in web pages (already in point of sale)
+-deposit date as a limit to pay it (remove confirmation if date is past?)
+-import also theme and language when customizations are imported from one user to another
+-mark the message as answered when sending email from messages table (or from check availability when the origin is messages table) (also on imap server?)
+-move documents selection from year privileges to global privileges
+-highlight current date in calendar to pick dates (when in current month) and in month table
+-translate page titles in administrator language
+-better recognition of email data when downloading emails in messages: add language, origin (in conf&cust near each subject line), rate(?)
+-create reservation codes that don't change between years (create new progressive numbers for each year? when a first reservation for a future year new series starting from 1 is created)
+-search also with reservation code when searching reservation number
+-call reservations also with reservation code (instead of number) from documents api
+-in api docuemnts check if with javascript history.replaceState() in page header (only when custom headers are not used?) it's possible to remove the password from browser history
+-possibility to insert rule 1 for all rooms or all rooms in a rate (?)
+-possibility to order the reservations table by surname (inner join query)
+-categories for incomes or expenses
+-show insertion date for items in inventory
+-possibility to merge 2 stockrooms, or overwrite one stockroom with another
+-possibility to compare 2 stockrooms
+-fast insertion of quantities in stockroom: + and - buttons (finger friendly) in each line with 1 as default quantity to be added (xmlhttprequest?)
+-when inserting a reservation selecting dates in month table, make a xmlhttprequest to disponibilita.php showing prices of rates that contain the room in rule 2 and button to book
+-possibility to show only rooms from one rate (rule 2) or one floor/house in month table
+-in main menu possibility to select groups for "group checkin" "group checkout" or "modify as a group"
+-possibility to group statistics weekly (and daily?) instead of monthly
+-for nationality statistics, take into account residence if nationality is not present
+-limit to the first 25 nations with higher value (sum of shown years) the tables with nations in statistics, group other nations in "other"
+-possibility to show statistics for next year
+-average lenght of reservations in statistics
+-when inserting prices on daily basis, or in other series of dates, select next date in next row
+-use javascript also for costs that have inventory items in point of sale (js_array[stockroom][item_name] = items_number)
+-new document fortmat: html to pdf (with dompdf, setting path in preferences?) (wkhtmltopdf from command line?) (?)
+-customization to automatically purge messages older than x months
+-possibility to sort payments table by surname, res. number, arrival or departure date
+-when typing 3 letters or more for nations, regions or cities in textboxs, offer to complete the word with xmlhttprequest
+-reservation comments to be shown only to some users or guests
+-possibility to show payments in default invoices
+-possibility to show daily prices in default invoices
+-possibility to show totals of prices at a % of taxes (if [show_subtotal_invo]=1) in default invoices and do not show sub-total if only one item
+-for default invoices add a variable at the beginning of conditions to show/don't show only costs with a given % of taxes
+-possibility for taxes with decimals
+-number of periods in first column of rates table
+-possibility to import photos and descriptions from one rate to another (checkbox added in import prices)
+-more than one payment method allowed in booking pages (various buttons for payment)
+-display progressive numbers in email documents with multiple emails
+-different privileges to "modify" and "delete" clients for users
+-privilege for deleting clients
+-use javascript (if available) when clicking on small link to show all dates in menus
+-possibility to customize fields asked for guests when inserting a reservation
+-show name (and/or value) of extra costs in group columns in reservations table
+-possibility for administrator to delete messages for all users
+-scoll the availability calendar website page also by day or week
+-checked-in and checked-out in document variables
+-if a reservation that begins in the future is checked-in, show it in the main menu table (with error sign?)
+-warning when saving a document and there is a repetion variable outside its repetition
+-possibility to choose pages where each document can appear
+-option to center the month table to today in month table by default (with javascript?)
+-option to disable (temporarily?) the capitalization of words in name, surname, street
+-link to the checked-in reservation when trying to checkin a reservation in an already occupied room
+-possibility to insert client from messages table (also a button to insert all clients)
+-when a reservation is inserted from a downloaded email, leave a link to the reservation in the message (like interconnections)
+-as admin 2 options when no availability inserting a reservation: don't consider requested rooms or divide it between them (only 2nd for normal users)
+-in user privileges add "already ended" besides "already begun" to "possibility to modify reservations" (can't modify past days in extra costs if selected)
+-possibility to modify the receiving email with a document variable in documents in eamil format
+-menu that references available sections in "configure and customize"
+-show a new table with payments after (or inside?) table with reservations in "modify client data" (so to make clear why a client can't be deleted)
+-when creating availability webpage possibility to choose to show each extra cost at first or sencond step (if enabled)
+-in mobile view, when inserting/modifying a reservation, hide extra costs that can be added behind a button (javascript)
+-button to delete all guests without a future reservation in the clients table
+-possibility to group beds (same name when removing suffix letter or number) in rooms table when inserting assignment rule 2
+-when creating new year automatically, before importing, extend the periods to the end of the new year if not already present
+-store backup file as compressed if gzwrite functions available (custom functions for fopen, fread, fwrite, fclose)
+-possibility to add "indicative availability overview" below month table (grouped wit rule 2 or number of people)
+-move table background color from html to css in themes (css in header to keep color varible?) and set a blank backgrond for print media
+-possibility to give a name to periods in rates table (also custom color?)
+-when administrator modifies the name of a document offer the possibility to modify it for all users if only admin selected
+-as administrator posibbility to import documents names also to groups or all users from a selected user (by default administrator)
+-link to modify a reservation in past year from the "modify client" page ("go back" returns to current year)
+-half hours in server offset time
+-manual page in html (in doc folder) about editing documents: document types, default variables description, repetitons description, custom variables and conditions
+-explanation of rules in rules table
+-if a rate has no prices in any period then show also the "per person" input when clicking on rates table and single rate table
+-before modifying the comment in multiple reservations add the phrase "comments in all selected reservations will be replaced with new comment"
+-calendar to choose rooms also for lists of rooms when inserting or modifying a reservation
+-possibility to show grouped costs (insetad of only combined) also in webpages
+-with mysql/mariadb by default use aria storage engine (instead of myisam) if available when creating database (use "ALTER TABLE xxxx ENGINE=Aria" when upgrading?) (add "BEGIN" before lock tables and "COMMIT" after unlock)
+-possibility to merge 2 different clients (one client will be the principal and only his empty fileds will be overwritten by the other)
+-new default document that shows selected resevations as they are shown in default reservations table
+-show the room comment when passing over the room name in month table and "modify reservation" page
+-add client comment to document variables
+-from docuemnts table possibility to download a batch of saved documents from number to number (zipped together?)
+-in availability page possibility for a discount for clients with past reservations (check email/telephone for existing client)
+
+
+version 4.0
+-(partial?) source code translation to English (refactoring: make a script with function token_get_all)
+
+
+version 4.0.x
+-when reservation is dragged in month table show a "delete" bin to delete the reservation when dropped on it (or when dropped outside table?)
+-XMLHttpRequest instead of hidden iframe for lists of nations/regions/cities (?)
+
+
+version 5.0
+-total percentage deposit (not with total percentage extra costs?)
+-possibility to modify costs associated to a rate from a single page (show costs from sigle rate table page)
+-when possible assign automatically the extra cost if rate price (or rate - discount?) is > or < of X
+-possibility to select a combined extra cost in website pages as the extra beds cost
+-customize fields to be asked for titular client, first guest and other guests
+-possibility to define a default (selected or first in list) nation, region, city, document type, relatedness (or possibility to change their order)
+-optimize reservations distribution when a reservation is deleted (?)
+-say if there are unconfirmed reservations when checking and there is no availability
+-possibility to show value of extra costs in all reservations table
+-possibility to (automatically) delete all reservations older than x days without confirmation
+-apply extra costs based on total price
+-possibility to keep the messages when updating a subordinated installation (sending them to master?)
+-possibility to delete the money of cancelled reservations
+-possibility to compact clients' numbers
+-modify prices inside a table with day numbers in first row and months in first column
+-dates ranges instead of options to store menu periods in website pages (?)
+-if 2 rooms have same priority give precedence to the one that comes first in assignment rule 2
+-possibility to show months separately in availability calendar when there is only 1 type
+-show different colors when there are less than X rooms available in calendar website page
+-show a different color when there is an unconfirmed reservation in availability calendar
+-checkbox to select all days when inserting an extra cost with asked days
+-YYYY-MM-DD date format
+-when inserting a new extra cost select to which users with "only selected costs" privilege the cost must be added
+-table with cancelled reservations in statistics
+-logs in multiple files (the last one is deleted when limit reached)
+-possibility to insert a default postal code for cities (use city code as postal code)
+-possibility to auto-refresh month table
+-auto select (or suggest) the amount of paid money - trasferred in cashbox as default when inserting entrances (?)
+-show also the page from where the query was made in logs
+-possibility to reserve a "POS unit" (restaurant table) with day and hour
+-show reserved "POS units" (restaurant tables) for a specific day/hour in a table
+-document variable with the sum of all taxes (and sum of all prices without taxes?) (calculate it only if these variables are in document text or coditions)
+-room description when passing over room name in month table
+-cash given (with return to be given back) in point of sale
+-numerical keyboard for the cahbox (usable in touch sceen)
+-show document buttons after a payment has been inserted in cashbox (like done in pos)
+-possibility to select intervals for dates in drop-down menus as "x days yes and x days no"
+-form to easily set weekly dates selecting the week day in year section of "configure and customize"
+-global privilege to disable "modify" privileges in past years, even if still enabled 
+-possibility to import reservations from a csv or xml file (use a document for format? or fixed format?) (use functions used in interconnections downloads)
+-possibility to import (again) prices/restrictions from past periods also when the periods have already been added
+
+
+future versions
+-possibility to have different unit names for different rates in website pages
+-possibility to customize colors in month table depending on origin, etc.
+-billing address (street/city/country/postal code) in credit cards data
+-add a new color for not confirmed reservations after X days from their insertion
+-privileges to forbid modifying checked-in or checked-out reservations
+-possibility to don't show year in dates in rates website page
+-possibility to don't show past dates in rates website page
+-single room and daily stitistics
+-statistics for future years if there are reservations in those years
+-column with assigned rooms in all reservations table
+-requested dates in subject of emails from website pages
+-store user id in website pages instead of user name
+-client data in all reservations table
+-possibility to set an ip access list for login
+-possibility to generate javascript dates menus in website pages
+-if room(s) requested and rate with rule 2, use rule 2 in second try when inserting reservations(?)
+-test speed of changing switch/case with array in mex function
+-possibility to change the beginning day of year
+-other tables customization
+-pass settings stored in website pages in the database
+-possibility to use already inserted clients for guests
+-rates priority
+-possibility to change the order of columns in all reservations table
+-custom colors for rooms
+-possibility to refund a payment by calling an external URL with payment details (initial payments API)
+-top clients (number of days reserved in a period) in statistics
+-day table with graphical layout of rooms, showing occupied ones
+-possibility for administrator user to change inserting user when inserting a reservation
+-possibility for extra costs to add inventory goods instead of only removing them (or moving them from a room/stockroom to another one)
+-search clients also by fiscal code
+-help on line
